@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- 设置域名界面 -->
+        <record id="view_saas_general_configuration" model="ir.ui.view">
+            <field name="name">General Settings</field>
+            <field name="model">base.config.settings</field>
+            <field name="inherit_id" ref="base_setup.view_general_configuration"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@name='google']" position="before">
+                        <group string="Domain" name="domain">
+                            <label for="id" string="SaaS Domain"/>
+                            <div name="saas_domain">
+                                <div><field name="base_saas_domain" class="oe_inline"/></div>
+                            </div>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

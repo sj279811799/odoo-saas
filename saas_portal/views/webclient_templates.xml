@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="web.customer_register_layout" name="Customer Register Layout">
+            <t t-call="web.layout">
+                <t t-set="head">
+                  <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.css"/>
+                  <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css"/>
+                  <script src="/web/static/lib/jquery/jquery.js" type="text/javascript"/>
+                </t>
+                <t t-set="body_classname" t-value="'container'"/>
+                <div class="row">
+                  <div class="col-md-6 col-md-offset-3 o_database_list">
+                    <div class="text-center">
+                      <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}"/>
+                    </div>
+                    <t t-raw="0"/>
+                    <div class="text-center" t-if="not disable_footer">
+                        <a href="https://www.odoo.com" target="_blank">Powered by <span>Odoo</span></a>
+                    </div>
+
+                  </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="web.customer_register" name="Customer Register">
+            <t t-call="web.customer_register_layout">
+
+                <form class="oe_login_form" role="form" t-attf-action="/web/customer_register{{ '?debug' if debug else '' }}" method="post" onsubmit="this.action = this.action + location.hash">
+                   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div class="form-group field-name">
+                        <label for="name" class="control-label">Name</label>
+                        <input type="text" name="name" t-att-value="name" id="name" class="form-control" required="required" autofocus="autofocus" autocapitalize="off"/>
+                    </div>
+
+                    <div class="form-group field-subdomain">
+                        <label for="subdomain" class="control-label">Subdomain</label>
+                        <input type="text" name="subdomain" t-att-value="subdomain" id="subdomain" class="form-control" required="required" autofocus="autofocus" autocapitalize="off"/>
+                    </div>
+
+                    <div class="form-group field-email">
+                        <label for="email" class="control-label">E-mail</label>
+                        <input type="text" name="email" t-att-value="email" id="email" class="form-control" required="required" autofocus="autofocus" autocapitalize="off"/>
+                    </div>
+
+                    <div class="form-group field-adminuser">
+                        <label for="adminuser" class="control-label">Admin User</label>
+                        <input type="text" name="adminuser" id="adminuser" class="form-control" required="required" t-att-autofocus="'autofocus' if login else None"/>
+                    </div>
+
+                    <div class="form-group field-password">
+                        <label for="password" class="control-label">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" required="required" t-att-autofocus="'autofocus' if login else None"/>
+                    </div>
+
+                    <div>
+                        <label style="padding-right:80px"><input name="package" type="radio" value="package_one" checked="true"/>套餐一：<t t-esc="package_one"/>用户</label>
+                        <label style="padding-right:80px"><input name="package" type="radio" value="package_two"/>套餐二：<t t-esc="package_two"/>用户</label>
+                        <label><input name="package" type="radio" value="package_three"/>套餐三：<t t-esc="package_three"/>用户</label>
+                    </div>
+
+                    <p class="alert alert-danger" t-if="error">
+                        <t t-esc="error"/>
+                    </p>
+                    <p class="alert alert-success" t-if="message">
+                        <t t-esc="message"/>
+                    </p>
+                    <div class="form-group field-select_temp">
+                        <label for="select_temp" class="control-label">Template</label>
+                        <select name="select" id="select_temp" class="select_temp">
+                            <t t-if="template">
+                                <t t-foreach="template" t-as="temp">
+                                    <option t-value="temp">
+                                        <span t-esc="temp"/>
+                                    </option>
+                                </t>
+                            </t>
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    <div class="clearfix oe_login_buttons">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+
+                </form>
+            </t>
+        </template>
+    </data>
+</openerp>

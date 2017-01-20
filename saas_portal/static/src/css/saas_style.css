@@ -1,0 +1,15 @@
+.openerp .oe_saas_rancher_sync {
+    padding: 5px;
+}
+
+.openerp .oe_rancher_host_sync button {
+    margin: 3px;
+}
+
+.openerp .oe_saas_upstream_sync {
+    padding: 5px;
+}
+
+.openerp .oe_upstream_sync button {
+    margin: 3px;
+}

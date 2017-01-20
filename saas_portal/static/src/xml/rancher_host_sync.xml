@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="RancherHostSync">
+        <div class="oe_saas_rancher_sync">
+            <div>
+                <button class="oe_rancher_host_sync oe_button oe_highlight"
+                        href="javascript:void(0)">Sync</button>
+            </div>
+        </div>
+    </t>
+
+</templates>

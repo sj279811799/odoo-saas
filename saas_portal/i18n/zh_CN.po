@@ -1,0 +1,600 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* saas_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-10 06:44+0000\n"
+"PO-Revision-Date: 2016-12-10 06:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: saas_portal
+#: model:mail.template,body_html:saas_portal.mail_template_customer_register
+msgid "\n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    <p>${object.name},</p>\n"
+"                    <p>您好!</p>\n"
+"                    <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢您注册SaaS平台，您的用户名为${object.admin_name}，密码为${object.admin_password}，注册用户数量为${object.user_number}人，您可以点击<a href=\"http://${object.sub_domain}.saas.hand.com\" target=\"_blank\" style=\"cursor:pointer;text-decoration:none;color:rgb(51, 122, 183);background-color:transparent;\">这里</a>访问，或复制${object.sub_domain}.saas.hand.com访问。</p>\n"
+"                </div>\n"
+"            "
+msgstr "\n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    <p>${object.name},</p>\n"
+"                    <p>您好!</p>\n"
+"                    <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢您注册SaaS平台，您的用户名为${object.admin_name}，密码为${object.admin_password}，注册用户数量为${object.user_number}人，您可以点击<a href=\"http://${object.sub_domain}.saas.hand.com\" target=\"_blank\" style=\"cursor:pointer;text-decoration:none;color:rgb(51, 122, 183);background-color:transparent;\">这里</a>访问，或复制${object.sub_domain}.saas.hand.com访问。</p>\n"
+"                </div>\n"
+"            "
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_access_key
+msgid "Access Key"
+msgstr "Access Key"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_active
+#: model:ir.model.fields,field_description:saas_portal.field_saas_nginx_active
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_active
+#: selection:saas.partition.line,state:0
+#: selection:saas.rancher.host,state:0
+msgid "Active"
+msgstr "有效"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_res_partner_admin_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_admin_name
+msgid "Admin Name"
+msgstr "管理员帐号"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_res_partner_admin_password
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_admin_password
+msgid "Admin Password"
+msgstr "管理员密码"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_application
+msgid "Application"
+msgstr "实例数量"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_package_id
+msgid "Package"
+msgstr "套餐"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_code
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_code
+msgid "Code"
+msgstr "编号"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_port
+msgid "Port"
+msgstr "端口"
+
+#. module: saas_portal
+#: code:addons/saas_portal/models/saas.py:84
+#, python-format
+msgid "Connection Test Failed! Here is what we got instead:\n"
+" %s"
+msgstr "连接测试失败！这是我们所得到的:\n"
+" %s"
+
+#. module: saas_portal
+#: code:addons/saas_portal/models/saas.py:82
+#, python-format
+msgid "Connection Test Failed! The environment is not exists!"
+msgstr "连接测试失败！环境不存在！"
+
+#. module: saas
+#: code:addons/saas_portal/models/saas.py:85
+#, python-format
+msgid "Connection Test Succeeded! Everything seems properly set up!"
+msgstr "连接测试成功！所有的东西看起来正确的设置好了！"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_cpu
+msgid "Cpu"
+msgstr "Cpu"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_cpu_count
+msgid "Cpu Count"
+msgstr "Cpu核数"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_create_uid
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_create_uid
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_create_uid
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_create_uid
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_create_date
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_create_date
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_create_date
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_create_date
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: saas_portal
+#: code:addons/saas_portal/models/saas.py:120
+#, python-format
+msgid "Current company do not define SaaS Partition sequence,please contact the administrator."
+msgstr "当前公司的分区序列未定义，请联系管理员。"
+
+#. module: saas_portal
+#: code:addons/saas_portal/models/saas.py:140
+#, python-format
+msgid "Current company do not define SaaS Port sequence,please contact the administrator."
+msgstr "当前公司的分区端口序列未定义，请联系管理员。"
+
+#. module: saas_portal
+#: code:addons/saas_portal/models/saas.py:140
+#, python-format
+msgid "Can not find the appropriate partition template,please contact the administrator."
+msgstr "找不到可用的分区模版，请联系管理员。"
+
+#. module: saas_portal
+#: selection:saas.rancher.host,host_type:0
+msgid "DB"
+msgstr "DB"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_description
+msgid "Description"
+msgstr "说明"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_display_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_display_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_display_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_display_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_docker_compose
+#: model:ir.ui.view,arch_db:saas_portal.saas_partition_template_form
+msgid "Docker Compose"
+msgstr "Docker Compose"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_env_name
+msgid "Environment"
+msgstr "环境"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_host
+msgid "Host"
+msgstr "主机地址"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_host_id
+msgid "Host ID"
+msgstr "主机ID"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_host_ip
+msgid "Host IP"
+msgstr "主机IP"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_host_name
+msgid "Host Name"
+msgstr "主机名"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_host_type
+msgid "Host Type"
+msgstr "主机类型"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_id
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_id
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_id
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_id
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_id
+msgid "ID"
+msgstr "ID"
+
+#. module: saas_portal
+#: selection:saas.rancher.host,state:0
+msgid "Inactive"
+msgstr "无效"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center___last_update
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition___last_update
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template___last_update
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host___last_update
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema___last_update
+msgid "Last Modified on"
+msgstr "最后修改时间"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_write_uid
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_write_uid
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_write_uid
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_write_uid
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_write_date
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_write_date
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_write_date
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_write_date
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_memory_available
+msgid "Memory Available"
+msgstr "可用内存"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_memory_total
+msgid "Memory Total"
+msgstr "内存总数"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_nginx_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_package_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_line_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_name
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_name
+msgid "Name"
+msgstr "名称"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_res_partner_partition_id
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_partition_id
+msgid "Partition"
+msgstr "分区"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_temp_id
+msgid "Partition Template"
+msgstr "分区模版"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_partition_id
+msgid "Partition id"
+msgstr "分区ID"
+
+#. module: saas_portal
+#: model:ir.model,name:saas_portal.model_res_partner
+msgid "Partner"
+msgstr "合作伙伴"
+
+#. module: saas_portal
+#: model:ir.ui.menu,name:saas_portal.menu_rancher
+msgid "Sale"
+msgstr "销售"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_rancher_compose
+#: model:ir.ui.view,arch_db:saas_portal.saas_partition_template_form
+msgid "Rancher Compose"
+msgstr "Rancher Compose"
+
+#. module: saas_portal
+#: code:addons/saas_portal/controllers/main.py:21
+#, python-format
+msgid "Sub Domain already exist!"
+msgstr "域名已经存在！"
+
+#. module: saas_portal
+#: code:addons/saas_portal/controllers/main.py:23
+#, python-format
+msgid "Name already exist!"
+msgstr "用户名已经存在！"
+
+#. module: saas_portal
+#: code:addons/saas_portal/controllers/main.py:33
+#, python-format
+msgid "Register Success!We will send email to you when the database is ready."
+msgstr "注册成功，具体信息会在之后以邮件方式发送到您的邮箱，请注意查收。"
+
+#. module: saas_portal
+#: model:ir.ui.menu,name:saas_portal.menu_saas
+msgid "SaaS"
+msgstr "SaaS"
+
+#. module: saas_portal
+#: model:ir.actions.act_window,name:saas_portal.action_saas_data_center
+#: model:ir.ui.menu,name:saas_portal.menu_saas_data_center
+msgid "SaaS Data Center"
+msgstr "数据中心"
+
+#. module: saas_portal
+#: model:ir.actions.act_window,name:saas_portal.action_saas_partition
+#: model:ir.ui.menu,name:saas_portal.menu_saas_partition
+msgid "SaaS Partition"
+msgstr "分区"
+
+#. module: saas_portal
+#: model:ir.actions.act_window,name:saas_portal.action_saas_partition_template
+#: model:ir.ui.menu,name:saas_portal.menu_saas_partition_template
+msgid "SaaS Partition Template"
+msgstr "分区模版"
+
+#. module: saas_portal
+#: model:ir.actions.act_window,name:saas_portal.action_saas_rancher_host
+#: model:ir.ui.menu,name:saas_portal.menu_saas_rancher_host
+msgid "SaaS Rancher Host"
+msgstr "主机"
+
+#. module: saas_portal
+#: model:ir.actions.act_window,name:saas_portal.action_saas_schema
+#: model:ir.ui.menu,name:saas_portal.menu_saas_schema
+msgid "SaaS Schema"
+msgstr "客户"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_secret_key
+msgid "Secret Key"
+msgstr "Secret Key"
+
+#. module: saas_portal
+#: selection:saas.rancher.host,host_type:0
+msgid "Server"
+msgstr "Server"
+
+#. module: saas_portal
+#: model:ir.ui.menu,name:saas_portal.menu_setting
+msgid "Setting"
+msgstr "设置"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_rancher_host_state
+msgid "State"
+msgstr "状态"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_res_partner_sub_domain
+msgid "Sub Domain"
+msgstr "子域名"
+
+#. module: saas_portal
+#. openerp-web
+#: code:addons/saas_portal/static/src/xml/rancher_host_sync.xml:8
+#, python-format
+msgid "Sync"
+msgstr "同步"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_is_template
+msgid "Is Template"
+msgstr "是否模版"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_template
+msgid "Template"
+msgstr "模版"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.saas_data_center_form
+#: model:ir.ui.view,arch_db:saas_portal.saas_nginx_form
+msgid "Test Connection"
+msgstr "测试连接"
+
+#. module: saas_portal
+#: code:addons/saas_portal/models/saas.py:48
+#, python-format
+msgid "There is not have a valid rancher configuration!"
+msgstr "没有可用的rancher配置！"
+
+#. module: saas_portal
+#: code:addons/saas_portal/models/saas.py:462
+#, python-format
+msgid "There also exist draft schema reference this schema template."
+msgstr "仍存在草稿状态的客户在引用该客户模版。"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_data_center_url
+msgid "Url"
+msgstr "Url"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_res_partner_user_number
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_template_user_number
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_user_number
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_user_number
+msgid "User Number"
+msgstr "用户数量"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_user_id
+msgid "User"
+msgstr "用户"
+
+#. module: saas_portal
+#: model:ir.model,name:saas_portal.model_ir_mail_server
+msgid "ir.mail_server"
+msgstr "ir.mail_server"
+
+#. module: saas_portal
+#: model:ir.model,name:saas_portal.model_saas_data_center
+msgid "saas.data.center"
+msgstr "saas.data.center"
+
+#. module: saas_portal
+#: model:ir.model,name:saas_portal.model_saas_partition
+msgid "saas.partition"
+msgstr "saas.partition"
+
+#. module: saas_portal
+#: model:ir.model,name:saas_portal.model_saas_partition_template
+msgid "saas.partition.template"
+msgstr "saas.partition.template"
+
+#. module: saas_portal
+#: model:ir.model,name:saas_portal.model_saas_rancher_host
+msgid "saas.rancher.host"
+msgstr "saas.rancher.host"
+
+#. module: saas_portal
+#: model:ir.model,name:saas_portal.model_saas_schema
+msgid "saas.schema"
+msgstr "saas.schema"
+
+#. module: saas_portal
+#: model:mail.template,subject:saas_portal.mail_template_customer_register
+msgid "感谢您注册SaaS平台"
+msgstr "感谢您注册SaaS平台"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_line_state
+msgid "State"
+msgstr "状态"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_line_kind
+msgid "Kind"
+msgstr "类型"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_line_image
+msgid "Image"
+msgstr "镜像"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_partition_line_scale
+msgid "Scale"
+msgstr "数量"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.saas_partition_form
+msgid "Service"
+msgstr "服务"
+
+#. module: saas_portal
+#: model:ir.actions.act_window,name:saas_portal.action_saas_package
+#: model:ir.ui.menu,name:saas_portal.menu_saas_package
+msgid "SaaS Package"
+msgstr "套餐设置"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_package_user_number
+msgid "User Number"
+msgstr "用户数量"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_package_price
+msgid "Price"
+msgstr "价格"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_package_code
+msgid "Code"
+msgstr "编码"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_users_len
+msgid "Count users"
+msgstr "用户数量"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_file_storage
+msgid "File storage (MB)"
+msgstr "文件存储（MB）"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_db_storage
+msgid "DB storage (MB)"
+msgstr "数据存储（MB）"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_schema_client_id
+msgid "Database UUID"
+msgstr "数据库UUID"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.saas_schema_form
+msgid "Use Information"
+msgstr "使用信息"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.saas_schema_form
+msgid "Open Client"
+msgstr "登录客户端"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.saas_schema_form
+msgid "Sync Client"
+msgstr "刷新客户端"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.saas_schema_form
+msgid "Initialize DB"
+msgstr "初始化DB"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.saas_schema_form
+msgid "Confirm"
+msgstr "审批"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.view_saas_general_configuration
+msgid "Domain"
+msgstr "域名"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.view_saas_general_configuration
+msgid "SaaS Domain"
+msgstr "SaaS域名"
+
+#. module: saas_portal
+#: selection:saas.schema,state:0
+msgid "Done"
+msgstr "完成"
+
+#. module: saas_portal
+#: selection:saas.schema,state:0
+msgid "Draft"
+msgstr "草稿"
+
+#. module: saas_portal
+#: selection:saas.schema,state:0
+msgid "Confirm"
+msgstr "确认"
+
+#. module: saas_portal
+#: selection:saas.schema,state:0
+msgid "Close"
+msgstr "关闭"
+
+#. module: saas_portal
+#: model:ir.actions.act_window,name:saas_portal.action_saas_nginx
+#: model:ir.ui.menu,name:saas_portal.menu_saas_nginx
+msgid "SaaS Nginx"
+msgstr "Nginx设置"
+
+#. module: saas_portal
+#: model:ir.actions.act_window,name:saas_portal.action_saas_upstream
+#: model:ir.ui.menu,name:saas_portal.menu_saas_upstream
+msgid "SaaS Upstream"
+msgstr "Upstream"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_upstream_host_name
+msgid "Host Name"
+msgstr "域名"

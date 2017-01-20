@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Nginx后端 -->
+        <record model="ir.ui.view" id="saas_nginx_form">
+            <field name="name">SaaS Nginx</field>
+            <field name="model">saas.nginx</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="url"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                            </group>
+                            <button name="test_nginx_connection" type="object" string="Test Connection" icon="gtk-network"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saas_nginx_tree">
+            <field name="name">SaaS Nginx</field>
+            <field name="model">saas.nginx</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="url"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_saas_nginx" model="ir.actions.act_window">
+            <field name="name">SaaS Nginx</field>
+            <field name="res_model">saas.nginx</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="saas_data_center_tree"/>
+        </record>
+
+        <menuitem id="menu_saas_nginx" name="SaaS Nginx"
+                  parent="menu_setting"
+                  action="action_saas_nginx"/>
+
+        <!-- Upstream -->
+        <record model="ir.ui.view" id="saas_upstream_form">
+            <field name="name">SaaS Upstream</field>
+            <field name="model">saas.upstream</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="host_name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Server">
+                                <field name="server_ids" create="0">
+                                    <form>
+                                        <field name="ip_port"/>
+                                        <field name="weight"/>
+                                        <field name="max_fails"/>
+                                        <field name="fail_timeout"/>
+                                        <field name="backup"/>
+                                        <field name="down"/>
+                                    </form>
+                                    <tree>
+                                        <field name="ip_port"/>
+                                        <field name="weight"/>
+                                        <field name="max_fails"/>
+                                        <field name="fail_timeout"/>
+                                        <field name="backup"/>
+                                        <field name="down"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saas_upstream_tree">
+            <field name="name">SaaS Upstream</field>
+            <field name="model">saas.upstream</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="host_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_saas_upstream" model="ir.actions.act_window">
+            <field name="name">SaaS Upstream</field>
+            <field name="res_model">saas.upstream</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree_upstream_line,form</field>
+            <field name="view_id" ref="saas_upstream_tree"/>
+        </record>
+
+        <menuitem id="menu_saas_upstream" name="SaaS Upstream"
+                  parent="menu_setting"
+                  action="action_saas_upstream"/>
+    </data>
+</openerp>

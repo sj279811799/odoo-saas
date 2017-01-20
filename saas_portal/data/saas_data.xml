@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- 分区序列 -->
+        <record model="ir.sequence" id="seq_saas_partition">
+            <field name="name">SaaS Partition</field>
+            <field name="code">saas_partition</field>
+            <field name="padding" eval="5"/>
+            <field name="prefix">%(year)s%(month)s%(day)s</field>
+            <field name="company_id"></field>
+            <field name="number_next_actual" eval="1"/>
+            <field name="number_increment" eval="1"/>
+            <field name="implementation">standard</field>
+        </record>
+
+        <!-- 端口序列 -->
+        <record model="ir.sequence" id="seq_saas_port">
+            <field name="name">SaaS Port</field>
+            <field name="code">saas_port</field>
+            <field name="padding" eval="5"/>
+            <field name="company_id"></field>
+            <field name="number_next_actual" eval="1"/>
+            <field name="number_increment" eval="1"/>
+            <field name="implementation">standard</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_saas_port">
+            <field name="number_next_actual" eval="30005"/>
+        </record>
+
+        <!--Register mail template -->
+        <record id="mail_template_customer_register" model="mail.template">
+            <field name="name">Customer Register Mail</field>
+            <field name="subject">感谢您注册SaaS平台</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.lang}</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>${object.name},</p>
+                    <p>您好!</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢您注册SaaS平台，您的用户名为${object.admin_name}，密码为${object.admin_password}，注册用户数量为${object.user_number}人，您可以点击<a href="http://${object.sub_domain}.saas.hand.com" target="_blank" style="cursor:pointer;text-decoration:none;color:rgb(51, 122, 183);background-color:transparent;">这里</a>访问，或复制${object.sub_domain}.saas.hand.com访问。</p>
+                </div>
+            ]]></field>
+        </record>
+
+        <!--Admin mail template -->
+        <record id="mail_template_register_admin" model="mail.template">
+            <field name="name">Register Admin Mail</field>
+            <field name="subject">有新的注册申请需要审批</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.lang}</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>${object.name},</p>
+                    <p>您好!</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;有新的用户提交了注册申请，请尽快处理。</p>
+                </div>
+            ]]></field>
+        </record>
+
+        <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
+            <field name="enabled" eval="False"/>
+        </record>
+
+        <record model="res.partner" id="saas_portal.admin_mail">
+            <field name="name">Admin</field>
+            <field name="email">xxx@qq.com</field>
+            <field name="comment">此用户用于接收用户注册邮件。</field>
+        </record>
+
+        <!-- 套餐模版 -->
+        <record model="saas.package" id="package_one">
+            <field name="name">Large</field>
+            <field name="user_number" eval="1000"/>
+            <field name="price">10000</field>
+            <field name="code">package_one</field>
+        </record>
+
+        <record model="saas.package" id="package_two">
+            <field name="name">Medium</field>
+            <field name="user_number" eval="500"/>
+            <field name="price">5000</field>
+            <field name="code">package_two</field>
+        </record>
+
+        <record model="saas.package" id="package_three">
+            <field name="name">Small</field>
+            <field name="user_number" eval="100"/>
+            <field name="price">1000</field>
+            <field name="code">package_three</field>
+        </record>
+    </data>
+</openerp>

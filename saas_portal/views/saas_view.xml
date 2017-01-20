@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <!--菜单-->
+        <menuitem id="menu_saas" name="SaaS"/>
+
+        <menuitem id="menu_rancher" parent="menu_saas" name="Sale"/>
+
+        <menuitem id="menu_setting" parent="menu_saas" name="Setting"/>
+
+        <!-- Host -->
+        <record model="ir.ui.view" id="saas_rancher_host_form">
+            <field name="name">SaaS Rancher Host</field>
+            <field name="model">saas.rancher.host</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="memory_total" readonly="1"/>
+                                <field name="cpu" readonly="1"/>
+                                <field name="state" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="host_ip" readonly="1"/>
+                                <field name="memory_available" readonly="1"/>
+                                <field name="cpu_count" readonly="1"/>
+                                <field name="host_type" options="{'no_open':'1','no_create':'1'}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="saas_rancher_host_search" model="ir.ui.view">
+            <field name="name">SaaS Rancher Host</field>
+            <field name="model">saas.rancher.host</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="host_ip"/>
+                    <field name="state"/>
+                    <field name="host_type"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saas_rancher_host_tree">
+            <field name="name">SaaS Rancher Host</field>
+            <field name="model">saas.rancher.host</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="name"/>
+                    <field name="host_ip"/>
+                    <field name="state"/>
+                    <field name="host_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_saas_rancher_host" model="ir.actions.act_window">
+            <field name="name">SaaS Rancher Host</field>
+            <field name="res_model">saas.rancher.host</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree_rancher_host_line,form</field>
+            <field name="view_id" ref="saas_rancher_host_tree"/>
+        </record>
+
+        <menuitem id="menu_saas_rancher_host" name="SaaS Rancher Host"
+                  parent="menu_setting"
+                  action="action_saas_rancher_host"/>
+
+        <!-- Data Center -->
+        <record model="ir.ui.view" id="saas_data_center_form">
+            <field name="name">SaaS Data Center</field>
+            <field name="model">saas.data.center</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="url"/>
+                                <field name="access_key"/>
+                            </group>
+                            <group>
+                                <field name="env_name"/>
+                                <field name="secret_key"/>
+                                <field name="active"/>
+                            </group>
+                            <button name="test_rancher_connection" type="object" string="Test Connection" icon="gtk-network"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saas_data_center_tree">
+            <field name="name">SaaS Data Center</field>
+            <field name="model">saas.data.center</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_saas_data_center" model="ir.actions.act_window">
+            <field name="name">SaaS Data Center</field>
+            <field name="res_model">saas.data.center</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="saas_data_center_tree"/>
+        </record>
+
+        <menuitem id="menu_saas_data_center" name="SaaS Data Center"
+                  parent="menu_setting"
+                  action="action_saas_data_center"/>
+
+        <!-- Partition Template -->
+        <record model="ir.ui.view" id="saas_partition_template_form">
+            <field name="name">SaaS Partition Template</field>
+            <field name="model">saas.partition.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="user_number"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Docker Compose">
+                                <field name="docker_compose"/>
+                            </page>
+                            <page string="Rancher Compose">
+                                <field name="rancher_compose"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saas_partition_template_tree">
+            <field name="name">SaaS Partition Template</field>
+            <field name="model">saas.partition.template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="user_number"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_saas_partition_template" model="ir.actions.act_window">
+            <field name="name">SaaS Partition Template</field>
+            <field name="res_model">saas.partition.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="saas_partition_template_tree"/>
+        </record>
+
+        <menuitem id="menu_saas_partition_template" name="SaaS Partition Template"
+                  parent="menu_setting"
+                  action="action_saas_partition_template"/>
+
+        <!-- Partition -->
+        <record model="ir.ui.view" id="saas_partition_form">
+            <field name="name">SaaS Partition</field>
+            <field name="model">saas.partition</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="user_number" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="code" readonly="1"/>
+                                <field name="temp_id" options="{'no_create':'1'}"/>
+                                <field name="port" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Service">
+                                <field name="line_ids" create="0">
+                                    <form>
+                                        <field name="name"/>
+                                        <field name="state"/>
+                                        <field name="kind"/>
+                                        <field name="image"/>
+                                        <field name="scale"/>
+                                    </form>
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="state"/>
+                                        <field name="kind"/>
+                                        <field name="image"/>
+                                        <field name="scale"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saas_partition_tree">
+            <field name="name">SaaS Partition</field>
+            <field name="model">saas.partition</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="description"/>
+                    <field name="temp_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_saas_partition" model="ir.actions.act_window">
+            <field name="name">SaaS Partition</field>
+            <field name="res_model">saas.partition</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="saas_partition_tree"/>
+        </record>
+
+        <menuitem id="menu_saas_partition" name="SaaS Partition"
+                  parent="menu_rancher"
+                  action="action_saas_partition"/>
+
+        <record id="view_res_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="website" position="after">
+                    <field name="sub_domain" type="measure"/>
+                    <field name="user_number" type="measure"/>
+                    <field name="admin_name" type="measure"/>
+                    <field name="admin_password" type="measure"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Schema -->
+        <record model="ir.ui.view" id="saas_schema_form">
+            <field name="name">SaaS Schema</field>
+            <field name="model">saas.schema</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                    <header>
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', 'draft')]}"/>
+                        <button string="Open Client" name="action_redirect_to_server" type="object" icon="gtk-connect" class="oe_highlight" attrs="{'invisible': [('state', 'not in', 'done')]}"/>
+                        <button string="Sync Client" name="action_sync_client" type="object" icon="gtk-refresh" class="oe_highlight" attrs="{'invisible': [('state', 'not in', 'done')]}"/>
+                        <button string="Initialize DB" name="install_addons" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', 'confirm')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="user_id" readonly="1"/>
+                                <field name="admin_name" readonly="1"/>
+                                <field name="is_template"/>
+                                <field name="template" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="host" readonly="1"/>
+                                <field name="user_number" readonly="1"/>
+                                <field name="admin_password" readonly="1"/>
+                                <field name="partition_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Use Information">
+                                <group>
+                                    <group>
+                                        <field name="users_len" readonly="1"/>
+                                        <field name="file_storage" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="client_id" readonly="1"/>
+                                        <field name="db_storage" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saas_schema_tree">
+            <field name="name">SaaS Schema</field>
+            <field name="model">saas.schema</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="name"/>
+                    <field name="is_template"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_saas_schema" model="ir.actions.act_window">
+            <field name="name">SaaS Schema</field>
+            <field name="res_model">saas.schema</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="saas_schema_tree"/>
+        </record>
+
+        <menuitem id="menu_saas_schema" name="SaaS Schema"
+                  parent="menu_rancher"
+                  action="action_saas_schema"/>
+
+        <!-- Schema -->
+        <record model="ir.ui.view" id="saas_package_form">
+            <field name="name">SaaS Package</field>
+            <field name="model">saas.package</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="price"/>
+                            </group>
+                            <group>
+                                <field name="user_number"/>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="saas_package_tree">
+            <field name="name">SaaS Package</field>
+            <field name="model">saas.package</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="user_number"/>
+                    <field name="price"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_saas_package" model="ir.actions.act_window">
+            <field name="name">SaaS Package</field>
+            <field name="res_model">saas.package</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="saas_package_tree"/>
+        </record>
+
+        <menuitem id="menu_saas_package" name="SaaS Package"
+                  parent="menu_setting"
+                  action="action_saas_package"/>
+    </data>
+</openerp>
