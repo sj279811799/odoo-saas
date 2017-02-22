@@ -432,7 +432,7 @@ class SaasSchema(models.Model):
     def delete_db(self):
         base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
         host = '%s.%s' % (self.name, base_saas_domain)
-        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/drop')
+        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/saas_drop')
         data = {'name': self.name,
                 'master_pwd': self.admin_password}
         req = requests.Request('POST', url, data=data)
@@ -537,7 +537,7 @@ class SaasSchema(models.Model):
     def create_db(self, sub_domain, adminuser, password):
         base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
         host = '%s.%s' % (sub_domain, base_saas_domain)
-        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/create')
+        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/saas_create')
         data = {'name': sub_domain,
                 'lang': 'zh_CN',
                 'master_pwd': password,
@@ -551,7 +551,7 @@ class SaasSchema(models.Model):
     def duplicate_db(self, name, new_name, master_pwd):
         base_saas_domain = self.env['ir.config_parameter'].get_param("saas.base_saas_domain")
         host = '%s.%s' % (new_name, base_saas_domain)
-        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/duplicate')
+        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/saas_duplicate')
         data = {'master_pwd': master_pwd,
                 'name': name,
                 'new_name': new_name}
