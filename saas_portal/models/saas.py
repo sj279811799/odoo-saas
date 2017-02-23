@@ -347,7 +347,7 @@ class SaasSchema(models.Model):
     def _request_server(self, path=None, scheme=None, port=None, **kwargs):
         scheme = scheme or 'http'
         host = self.host
-        port = 8080
+        port = 80
         params = self._request_params(**kwargs)[0]
         access_token = self.oauth_application_id.sudo()._get_access_token(create=True)
         params.update({
@@ -382,7 +382,7 @@ class SaasSchema(models.Model):
     @api.one
     def _request_paramsc(self, path='/web', scheme=None, port=None, state={}, scope=None, client_id=None):
         scheme = scheme or 'http'
-        port = port or '8080'
+        port = port or '80'
         scope = scope or ['userinfo', 'force_login', 'trial', 'skiptheuse']
         client_id = client_id or str(uuid.uuid1())
         scope = ' '.join(scope)
@@ -399,7 +399,7 @@ class SaasSchema(models.Model):
     def _request_serverc(self, path=None, scheme=None, port=None, **kwargs):
         scheme = scheme or 'http'
         host = self.host
-        port = 8080
+        port = 80
         params = self._request_paramsc(**kwargs)[0]
         url = '{scheme}://{host}:{port}{path}'.format(scheme=scheme, host=host, port=port, path=path)
         req = requests.Request('GET', url, data=params)
@@ -534,16 +534,32 @@ class SaasSchema(models.Model):
                 return template
         return False
 
+    # def create_db(self, sub_domain, adminuser, password):
+    #     base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
+    #     host = '%s.%s' % (sub_domain, base_saas_domain)
+    #     url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=80, path='/web/database/saas_create')
+    #     data = {'name': sub_domain,
+    #             'lang': 'zh_CN',
+    #             'master_pwd': password,
+    #             'password': password,
+    #             'login': adminuser}
+    #     req = requests.Request('POST', url, data=data)
+    #     req_kwargs = {'verify': True}
+    #     res = requests.Session().send(req.prepare(), **req_kwargs)
+    #     return res
+
     def create_db(self, sub_domain, adminuser, password):
-        base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
+        nginx_obj = self.env['saas.nginx']
+        base_saas_domain = self.env['ir.config_parameter'].get_param("saas.base_saas_domain")
         host = '%s.%s' % (sub_domain, base_saas_domain)
-        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/saas_create')
+        url = nginx_obj.search([('active', '=', True)], limit=1).url
+        url = '{scheme}://{host_port}{path}'.format(scheme='http', host_port=url, path='/web/database/saas_create')
         data = {'name': sub_domain,
                 'lang': 'zh_CN',
                 'master_pwd': password,
                 'password': password,
                 'login': adminuser}
-        req = requests.Request('POST', url, data=data)
+        req = requests.Request('POST', url, data=data, headers={'host': host})
         req_kwargs = {'verify': True}
         res = requests.Session().send(req.prepare(), **req_kwargs)
         return res
