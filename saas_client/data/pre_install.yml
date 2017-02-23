@@ -5,4 +5,9 @@
     self.write(cr, SUPERUSER_ID, [SUPERUSER_ID], {'oauth_provider_id': oauth_provider_id, 'oauth_uid': SUPERUSER_ID})
 
     dbuuid = self.pool['ir.config_parameter'].get_param(cr, SUPERUSER_ID, 'database.uuid')
-    self.pool['auth.oauth.provider'].write(cr, SUPERUSER_ID, [oauth_provider_id], {'client_id': dbuuid})
+    base_url = self.pool['ir.config_parameter'].get_param(cr, SUPERUSER_ID, 'web.base.url')
+    auth_endpoint = '%s/oauth2/auth' % base_url
+    validation_endpoint = '%s/oauth2/tokeninfo' % base_url
+    self.pool['auth.oauth.provider'].write(cr, SUPERUSER_ID, [oauth_provider_id], {'client_id': dbuuid,
+                                                                                   'auth_endpoint': auth_endpoint,
+                                                                                   'validation_endpoint': validation_endpoint})

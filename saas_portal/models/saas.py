@@ -244,7 +244,7 @@ class ResPartner(models.Model):
         schema_obj.create(schema_vals)
 
         # 发送admin邮件
-        admin_user = self.env.ref('saas.admin_mail')
+        admin_user = self.env.ref('saas_portal.admin_mail')
         self.saas_send_mail(admin_user, admin=True)
         return True
 
