@@ -554,7 +554,7 @@ class SaasSchema(models.Model):
         host = '%s.%s' % (sub_domain, base_saas_domain)
         ups_url = nginx_obj.search([('active', '=', True)], limit=1).url.split(':')[0]
         port = 8080
-        url = '{scheme}://{host}{port}{path}'.format(scheme='http', host=ups_url, port=port, path='/web/database/saas_create')
+        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=ups_url, port=port, path='/web/database/saas_create')
         data = {'name': sub_domain,
                 'lang': 'zh_CN',
                 'master_pwd': password,
