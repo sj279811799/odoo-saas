@@ -506,6 +506,7 @@ class SaasSchema(models.Model):
                 partner_obj.saas_send_mail(rec.user_id)
                 state = 'done'
             else:
+                print 'action_confirm->create_db'
                 self.create_db(rec.name, rec.admin_name, rec.admin_password)
                 state = 'confirm'
             use_partition.write({
@@ -555,6 +556,7 @@ class SaasSchema(models.Model):
         ups_url = nginx_obj.search([('active', '=', True)], limit=1).url.split(':')[0]
         port = 8080
         url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=ups_url, port=port, path='/web/database/saas_create')
+        print 'create_url:', url
         data = {'name': sub_domain,
                 'lang': 'zh_CN',
                 'master_pwd': password,
@@ -563,6 +565,7 @@ class SaasSchema(models.Model):
         req = requests.Request('POST', url, data=data, headers={'host': host})
         req_kwargs = {'verify': True}
         res = requests.Session().send(req.prepare(), **req_kwargs)
+        print res, '=========='
         return res
 
     def duplicate_db(self, name, new_name, master_pwd):
