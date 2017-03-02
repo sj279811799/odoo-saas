@@ -345,9 +345,8 @@ class SaasSchema(models.Model):
 
     @api.multi
     def _request_server(self, path=None, scheme=None, port=None, **kwargs):
-        scheme = scheme or 'http'
-        host = self.host
-        port = 80
+        nginx_obj = self.env['saas.nginx']
+        ups_url = nginx_obj.search([('active', '=', True)], limit=1).url.split(':')[0]
         params = self._request_params(**kwargs)[0]
         access_token = self.oauth_application_id.sudo()._get_access_token(create=True)
         params.update({
@@ -355,8 +354,8 @@ class SaasSchema(models.Model):
             'access_token': access_token,
             'expires_in': 3600,
         })
-        url = '{scheme}://{host}:{port}{path}'.format(scheme=scheme, host=host, port=port, path=path)
-        req = requests.Request('GET', url, data=params)
+        url = 'http://{host}:{port}{path}'.format(scheme=scheme, host=ups_url, port=8080, path=path)
+        req = requests.Request('GET', url, data=params, headers={'host': self.host})
         req_kwargs = {'verify': True}
         return req.prepare(), req_kwargs
 
@@ -397,12 +396,11 @@ class SaasSchema(models.Model):
 
     @api.multi
     def _request_serverc(self, path=None, scheme=None, port=None, **kwargs):
-        scheme = scheme or 'http'
-        host = self.host
-        port = 80
+        nginx_obj = self.env['saas.nginx']
+        ups_url = nginx_obj.search([('active', '=', True)], limit=1).url.split(':')[0]
         params = self._request_paramsc(**kwargs)[0]
-        url = '{scheme}://{host}:{port}{path}'.format(scheme=scheme, host=host, port=port, path=path)
-        req = requests.Request('GET', url, data=params)
+        url = 'http://{host}:{port}{path}'.format(scheme=scheme, host=ups_url, port=8080, path=path)
+        req = requests.Request('GET', url, data=params, headers={'host': self.host})
         req_kwargs = {'verify': True}
         return req.prepare(), req_kwargs
 
@@ -430,12 +428,14 @@ class SaasSchema(models.Model):
 
     @api.model
     def delete_db(self):
+        nginx_obj = self.env['saas.nginx']
         base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
         host = '%s.%s' % (self.name, base_saas_domain)
-        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/saas_drop')
+        ups_url = nginx_obj.search([('active', '=', True)], limit=1).url.split(':')[0]
+        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=ups_url, port=8080, path='/web/database/saas_drop')
         data = {'name': self.name,
                 'master_pwd': self.admin_password}
-        req = requests.Request('POST', url, data=data)
+        req = requests.Request('POST', url, data=data, headers={'host': host})
         req_kwargs = {'verify': True}
         res = requests.Session().send(req.prepare(), **req_kwargs)
         return res
@@ -506,7 +506,6 @@ class SaasSchema(models.Model):
                 partner_obj.saas_send_mail(rec.user_id)
                 state = 'done'
             else:
-                print 'action_confirm->create_db'
                 self.create_db(rec.name, rec.admin_name, rec.admin_password)
                 state = 'confirm'
             use_partition.write({
@@ -535,28 +534,12 @@ class SaasSchema(models.Model):
                 return template
         return False
 
-    # def create_db(self, sub_domain, adminuser, password):
-    #     base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
-    #     host = '%s.%s' % (sub_domain, base_saas_domain)
-    #     url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=80, path='/web/database/saas_create')
-    #     data = {'name': sub_domain,
-    #             'lang': 'zh_CN',
-    #             'master_pwd': password,
-    #             'password': password,
-    #             'login': adminuser}
-    #     req = requests.Request('POST', url, data=data)
-    #     req_kwargs = {'verify': True}
-    #     res = requests.Session().send(req.prepare(), **req_kwargs)
-    #     return res
-
     def create_db(self, sub_domain, adminuser, password):
         nginx_obj = self.env['saas.nginx']
-        base_saas_domain = self.env['ir.config_parameter'].get_param("saas.base_saas_domain")
+        base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
         host = '%s.%s' % (sub_domain, base_saas_domain)
         ups_url = nginx_obj.search([('active', '=', True)], limit=1).url.split(':')[0]
-        port = 8080
-        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=ups_url, port=port, path='/web/database/saas_create')
-        print 'create_url:', url
+        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=ups_url, port=8080, path='/web/database/saas_create')
         data = {'name': sub_domain,
                 'lang': 'zh_CN',
                 'master_pwd': password,
@@ -565,17 +548,18 @@ class SaasSchema(models.Model):
         req = requests.Request('POST', url, data=data, headers={'host': host})
         req_kwargs = {'verify': True}
         res = requests.Session().send(req.prepare(), **req_kwargs)
-        print res, '=========='
         return res
 
     def duplicate_db(self, name, new_name, master_pwd):
-        base_saas_domain = self.env['ir.config_parameter'].get_param("saas.base_saas_domain")
+        nginx_obj = self.env['saas.nginx']
+        base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
         host = '%s.%s' % (new_name, base_saas_domain)
-        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=host, port=8080, path='/web/database/saas_duplicate')
+        ups_url = nginx_obj.search([('active', '=', True)], limit=1).url.split(':')[0]
+        url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=ups_url, port=8080, path='/web/database/saas_duplicate')
         data = {'master_pwd': master_pwd,
                 'name': name,
                 'new_name': new_name}
-        req = requests.Request('POST', url, data=data)
+        req = requests.Request('POST', url, data=data, headers={'host': host})
         req_kwargs = {'verify': True}
         res = requests.Session().send(req.prepare(), **req_kwargs)
         return res
