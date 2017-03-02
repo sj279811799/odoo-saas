@@ -30,8 +30,8 @@ class ClientInstallAddons(models.Model):
 
     @api.model
     def install_addons(self, addons, db_name):
-        addons.add('auth_oauth')
-        addons.add('saas_client')
+        addons.append('auth_oauth')
+        addons.append('saas_client')
         addons = set(addons)
         if not addons:
             return
