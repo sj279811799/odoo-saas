@@ -32,9 +32,10 @@ class ClientInit(http.Controller):
         state = simplejson.loads(post.get('state'))
         addons = state.get('addons', [])
         db_name = state.get('d')
+        server_name = state.get('server_name')
 
         client = request.env['client.install.addons']
-        client.install_addons(addons=addons, db_name=db_name)
+        client.install_addons(addons=addons, db_name=db_name, server_name=server_name)
         client.update_registry(db_name=db_name)
 
         return simplejson.dumps({

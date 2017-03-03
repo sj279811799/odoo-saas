@@ -407,11 +407,13 @@ class SaasSchema(models.Model):
     @api.one
     def install_addons(self):
         partner_obj = self.env['res.partner']
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         for rec in self:
             state = {
                 'd': rec.name,
                 'client_id': rec.client_id,
                 'addons': [],
+                'server_name': base_url,
             }
             req, req_kwargs = self._request_serverc(path='/client_init/install_addons', state=state, client_id=rec.client_id)
             res = requests.Session().send(req, **req_kwargs)
