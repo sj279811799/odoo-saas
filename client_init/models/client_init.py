@@ -13,8 +13,9 @@ class ClientInstallAddons(models.Model):
         """ 设置oauth的endpoint """
         auth_endpoint = '%s/oauth2/auth' % server_name
         validation_endpoint = '%s/oauth2/tokeninfo' % server_name
-        oauth_provider = client_env.ref('saas_client.saas_oauth_provider')
-        oauth_provider.write({'auth_endpoint': auth_endpoint, 'validation_endpoint': validation_endpoint})
+        oauth_provider = client_env['auth.oauth.provider'].search([('name', '=', 'SaaS')], limit=1)
+        if oauth_provider:
+            oauth_provider.write({'auth_endpoint': auth_endpoint, 'validation_endpoint': validation_endpoint})
 
     @api.model
     def _install_addons(self, client_env, addons):
