@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api, _
+import openerp.tools.config as config
 from openerp.exceptions import UserError, ValidationError
 import openerp.tools as tools
 from rancher_util import Rancher
@@ -138,10 +139,17 @@ class SaasPartition(models.Model):
             docker_compose = template_obj.browse(vals['temp_id']).docker_compose
             rancher_compose = template_obj.browse(vals['temp_id']).rancher_compose
             user_number = template_obj.browse(vals['temp_id']).user_number
+            # volume = name
+            volume_name = self.name
+            # workers must >= 2
+            if int(user_number / 100) < 2:
+                workers = 2
+            else:
+                workers = int(user_number / 100)
             partition = {
                 "description": vals['description'] if 'description' in vals else False,
                 "name": res.code,
-                "dockerCompose": docker_compose % (res.port, (user_number / 100)),
+                "dockerCompose": docker_compose % (volume_name, res.port, workers),
                 "rancherCompose": rancher_compose,
                 "startOnCreate": True,
             }
@@ -436,7 +444,7 @@ class SaasSchema(models.Model):
         ups_url = nginx_obj.search([('active', '=', True)], limit=1).url.split(':')[0]
         url = '{scheme}://{host}:{port}{path}'.format(scheme='http', host=ups_url, port=8080, path='/web/database/saas_drop')
         data = {'name': self.name,
-                'master_pwd': self.admin_password}
+                'master_pwd': config['admin_passwd']}
         req = requests.Request('POST', url, data=data, headers={'host': host})
         req_kwargs = {'verify': True}
         res = requests.Session().send(req.prepare(), **req_kwargs)
@@ -504,11 +512,11 @@ class SaasSchema(models.Model):
                 raise UserError(_("There is not have a valid nginx configuration!"))
             # 创建或复制数据库
             if rec.template:
-                self.duplicate_db(rec.template, rec.name, rec.admin_password)
+                self.duplicate_db(rec.template, rec.name, config['admin_passwd'])
                 partner_obj.saas_send_mail(rec.user_id)
                 state = 'done'
             else:
-                self.create_db(rec.name, rec.admin_name, rec.admin_password)
+                self.create_db(rec.name, rec.admin_name, rec.admin_password, config['admin_passwd'])
                 state = 'confirm'
             use_partition.write({
                 'user_number': rec.user_number + use_partition.user_number,
@@ -536,7 +544,7 @@ class SaasSchema(models.Model):
                 return template
         return False
 
-    def create_db(self, sub_domain, adminuser, password):
+    def create_db(self, sub_domain, adminuser, admin_password, password):
         nginx_obj = self.env['saas.nginx']
         base_saas_domain = self.env['ir.config_parameter'].get_param("saas_portal.base_saas_domain")
         host = '%s.%s' % (sub_domain, base_saas_domain)
@@ -545,7 +553,7 @@ class SaasSchema(models.Model):
         data = {'name': sub_domain,
                 'lang': 'zh_CN',
                 'master_pwd': password,
-                'password': password,
+                'password': admin_password,
                 'login': adminuser}
         req = requests.Request('POST', url, data=data, headers={'host': host})
         req_kwargs = {'verify': True}

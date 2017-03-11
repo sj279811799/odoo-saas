@@ -35,9 +35,9 @@ class ClientInit(http.Controller):
         server_name = state.get('server_name')
 
         client = request.env['client.install.addons']
-        client.install_addons(addons=addons, db_name=db_name, server_name=server_name)
+        client.install_addons(addons=addons, db_name=db_name)
         client.update_registry(db_name=db_name)
-
+        client.set_endpoint(db_name=db_name, server_name=server_name)
         return simplejson.dumps({
             'state': 'success',
         })
