@@ -140,7 +140,7 @@ class SaasPartition(models.Model):
             rancher_compose = template_obj.browse(vals['temp_id']).rancher_compose
             user_number = template_obj.browse(vals['temp_id']).user_number
             # volume = name
-            volume_name = self.name
+            volume_name = vals['name']
             # workers must >= 2
             if int(user_number / 100) < 2:
                 workers = 2
