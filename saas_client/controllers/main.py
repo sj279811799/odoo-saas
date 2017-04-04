@@ -84,3 +84,29 @@ class SaasClient(http.Controller):
             return simplejson.dumps(res)
         else:
             raise Exception('Sync Client Failed!')
+
+    @http.route(['/saas_client/db_backup'], type='http', auth='public')
+    @webservice
+    def db_backup(self, **post):
+        """ backup database """
+        _logger.info('db_backup post: %s', post)
+
+        state = simplejson.loads(post.get('state'))
+        client_id = state.get('client_id')
+        db = state.get('d')
+        save_days = state.get('save_days')
+        access_token = post['access_token']
+        # get oauth_provider
+        saas_oauth_provider = request.registry['ir.model.data'].xmlid_to_object(request.cr, SUPERUSER_ID,
+                                                                                'saas_client.saas_oauth_provider')
+        # tocken validation
+        user_data = request.registry['res.users']._auth_oauth_rpc(request.cr, SUPERUSER_ID,
+                                                                  saas_oauth_provider.validation_endpoint, access_token)
+        if user_data.get("error"):
+            raise Exception(user_data['error'])
+
+        res = request.env['saas.backup.db'].db_backup(client_id, db, save_days)
+        if res:
+            return simplejson.dumps(res)
+        else:
+            raise Exception('Backup Failed!')

@@ -303,6 +303,19 @@
                                     </group>
                                 </group>
                             </page>
+                            <page string="DB Backup">
+                                <group>
+                                    <group>
+                                        <field name="interval_type"/>
+                                        <field name="last_backup_time" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="interval_number"/>
+                                        <field name="next_backup_time" readonly="1"/>
+                                    </group>
+                                    <field name="backup_line_ids"/>
+                                </group>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>

@@ -306,6 +306,13 @@ class SaasSchema(models.Model):
                                         ('close', 'Close')],
                              string='State', default='draft')
     template = fields.Char(string='Template', readonly=True)
+    last_backup_time = fields.Date(string="Last Backup Time", help="Last Backup Time")
+    next_backup_time = fields.Date(string="Next Backup Time", help="Next Backup Time")
+    interval_type = fields.Selection(selection=[('days', 'Days'), ('weeks', 'Weeks'), ('months', 'Months')],
+                                     string="Interval Unit", help="Interval Unit")
+    interval_number = fields.Integer(string="Interval Number", help="Interval Number")
+    backup_line_ids = fields.One2many(comodel_name="saas.database.backup.line", inverse_name="schema_id",
+                                      string="Backup Line", help="Backup Line")
 
     @api.one
     def _request_params(self, path='/web', scheme=None, port=None, state={}, scope=None, client_id=None):
@@ -384,6 +391,31 @@ class SaasSchema(models.Model):
             _logger.error('Error on parsing response: %s\n%s' % ([req.url, req.headers, req.body], res.text))
             raise
         self.write(data)
+        return None
+
+    @api.model
+    def backup_db(self):
+        db_backup_line_obj = self.env['saas.database.backup.line']
+        state = {
+            'd': self.name,
+            'client_id': self.client_id,
+            'save_days': 15,
+        }
+        req, req_kwargs = self._request_server(path='/saas_client/db_backup', state=state, client_id=self.client_id)
+        res = requests.Session().send(req, **req_kwargs)
+
+        if not res.ok:
+            raise Warning('Reason: %s \n Message: %s' % (res.reason, res.content))
+        try:
+            data = simplejson.loads(res.text)
+        except:
+            _logger.error('Error on parsing response: %s\n%s' % ([req.url, req.headers, req.body], res.text))
+            raise
+        db_backup_line_obj.create({
+            'schema_id': self.id,
+            'name': data['backup_file'],
+            'backup_time': fields.datetime.now(),
+        })
         return None
 
     @api.one
@@ -583,3 +615,24 @@ class SaasPackage(models.Model):
     user_number = fields.Integer(string='User Number')
     price = fields.Char(string="Price")
     code = fields.Char()
+
+
+class SaasDatabaseBackupLine(models.Model):
+    """ 数据库备份记录 """
+    _name = 'saas.database.backup.line'
+
+    schema_id = fields.Many2one(comodel_name='saas.schema', string='Schema', help='Schema')
+    name = fields.Char(string='Name')
+    backup_time = fields.Date(string="Backup Time", help="Backup Time")
+
+    @api.model
+    def backup_database(self):
+        # 备份每个db,更新backup_time
+        current_time = fields.datetime.now()
+        schemas = self.env['saas.schema'].search([('next_backup_time', '<=', current_time)])
+        for schema in schemas:
+            schema.backup_db()
+            schema.write({
+                'last_backup_time': schema.next_backup_time,
+                'next_backup_time': schema.next_backup_time + schema.interval_type * schema.interval_number,
+            })
