@@ -598,3 +598,23 @@ msgstr "Upstream"
 #: model:ir.model.fields,field_description:saas_portal.field_saas_upstream_host_name
 msgid "Host Name"
 msgstr "域名"
+
+#. module: saas_portal
+#: model:ir.ui.view,arch_db:saas_portal.saas_schema_form
+msgid "DB Backup"
+msgstr "备份信息"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_database_backup_line_schema_id
+msgid "Schema"
+msgstr "客户"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_database_backup_line_name
+msgid "Name"
+msgstr "文件名"
+
+#. module: saas_portal
+#: model:ir.model.fields,field_description:saas_portal.field_saas_database_backup_line_backup_time
+msgid "Backup Time"
+msgstr "备份时间"

@@ -313,8 +313,13 @@
                                         <field name="interval_number"/>
                                         <field name="next_backup_time" readonly="1"/>
                                     </group>
-                                    <field name="backup_line_ids"/>
                                 </group>
+                                <field name="backup_line_ids" options="{'no_open':'1'}">
+                                    <tree create="0">
+                                        <field name="name"/>
+                                        <field name="backup_time"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>

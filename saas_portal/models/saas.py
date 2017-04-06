@@ -10,9 +10,16 @@ import requests
 import werkzeug
 import simplejson
 import uuid
-
+from dateutil.relativedelta import relativedelta
 import logging
+
 _logger = logging.getLogger(__name__)
+
+_intervalTypes = {
+    'days': lambda interval: relativedelta(days=interval),
+    'weeks': lambda interval: relativedelta(days=7*interval),
+    'months': lambda interval: relativedelta(months=interval),
+}
 
 
 class SaasRancherHost(models.Model):
@@ -140,7 +147,8 @@ class SaasPartition(models.Model):
             rancher_compose = template_obj.browse(vals['temp_id']).rancher_compose
             user_number = template_obj.browse(vals['temp_id']).user_number
             # volume = name
-            volume_name = vals['name']
+            db_volume_name = "db_%s" % vals['name']
+            odoo_volume_name = "odoo_%s" % vals['name']
             # workers must >= 2
             if int(user_number / 100) < 2:
                 workers = 2
@@ -149,7 +157,7 @@ class SaasPartition(models.Model):
             partition = {
                 "description": vals['description'] if 'description' in vals else False,
                 "name": res.code,
-                "dockerCompose": docker_compose % (volume_name, res.port, workers),
+                "dockerCompose": docker_compose % (db_volume_name, res.port, odoo_volume_name, workers),
                 "rancherCompose": rancher_compose,
                 "startOnCreate": True,
             }
@@ -201,7 +209,8 @@ class SaasPartitionLine(models.Model):
     state = fields.Selection(selection=[('active', 'Active'),
                                         ('inactive', 'Inactive'),
                                         ('activating', 'Activating'),
-                                        ('registering', 'Registering')], string='State')
+                                        ('registering', 'Registering'),
+                                        ('updating-active', 'Updating Active')], string='State')
     kind = fields.Char(string="Kind")
     image = fields.Char(string="Image")
     scale = fields.Char(string="Scale")
@@ -395,6 +404,7 @@ class SaasSchema(models.Model):
 
     @api.model
     def backup_db(self):
+        # 向客户端发送备份指令
         db_backup_line_obj = self.env['saas.database.backup.line']
         state = {
             'd': self.name,
@@ -634,5 +644,5 @@ class SaasDatabaseBackupLine(models.Model):
             schema.backup_db()
             schema.write({
                 'last_backup_time': schema.next_backup_time,
-                'next_backup_time': schema.next_backup_time + schema.interval_type * schema.interval_number,
+                'next_backup_time': schema.next_backup_time + _intervalTypes[schema.interval_type](schema.interval_number),
             })
